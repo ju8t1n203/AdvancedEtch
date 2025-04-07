@@ -33,7 +33,14 @@ Partial Class MainForm
         Me.COMMComboBox = New System.Windows.Forms.ComboBox()
         Me.SerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.COMMTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.UpdateTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.TxTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.ADC1ValueLabel = New System.Windows.Forms.Label()
+        Me.ADC1MSBLabel = New System.Windows.Forms.Label()
+        Me.ADC1LSBLabel = New System.Windows.Forms.Label()
+        Me.ADC2LSBLabel = New System.Windows.Forms.Label()
+        Me.ADC2MSBLabel = New System.Windows.Forms.Label()
+        Me.ADC2Label = New System.Windows.Forms.Label()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
         CType(Me.BGPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EtchPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.InputGroupBox.SuspendLayout()
@@ -79,6 +86,12 @@ Partial Class MainForm
         '
         'InputGroupBox
         '
+        Me.InputGroupBox.Controls.Add(Me.ADC2LSBLabel)
+        Me.InputGroupBox.Controls.Add(Me.ADC2MSBLabel)
+        Me.InputGroupBox.Controls.Add(Me.ADC2Label)
+        Me.InputGroupBox.Controls.Add(Me.ADC1LSBLabel)
+        Me.InputGroupBox.Controls.Add(Me.ADC1MSBLabel)
+        Me.InputGroupBox.Controls.Add(Me.ADC1ValueLabel)
         Me.InputGroupBox.Controls.Add(Me.ConnectedLabel)
         Me.InputGroupBox.Controls.Add(Me.FromLabel)
         Me.InputGroupBox.Controls.Add(Me.COMMComboBox)
@@ -94,9 +107,8 @@ Partial Class MainForm
         Me.ConnectedLabel.AutoSize = True
         Me.ConnectedLabel.Location = New System.Drawing.Point(361, 30)
         Me.ConnectedLabel.Name = "ConnectedLabel"
-        Me.ConnectedLabel.Size = New System.Drawing.Size(39, 13)
+        Me.ConnectedLabel.Size = New System.Drawing.Size(0, 13)
         Me.ConnectedLabel.TabIndex = 2
-        Me.ConnectedLabel.Text = "Label1"
         '
         'FromLabel
         '
@@ -121,15 +133,77 @@ Partial Class MainForm
         'COMMTimer
         '
         '
-        'UpdateTimer
+        'TxTimer
         '
-        Me.UpdateTimer.Interval = 50
+        '
+        'ADC1ValueLabel
+        '
+        Me.ADC1ValueLabel.AutoSize = True
+        Me.ADC1ValueLabel.Location = New System.Drawing.Point(168, 16)
+        Me.ADC1ValueLabel.Name = "ADC1ValueLabel"
+        Me.ADC1ValueLabel.Size = New System.Drawing.Size(38, 13)
+        Me.ADC1ValueLabel.TabIndex = 3
+        Me.ADC1ValueLabel.Text = "ADC1:"
+        '
+        'ADC1MSBLabel
+        '
+        Me.ADC1MSBLabel.AutoSize = True
+        Me.ADC1MSBLabel.Location = New System.Drawing.Point(168, 30)
+        Me.ADC1MSBLabel.Name = "ADC1MSBLabel"
+        Me.ADC1MSBLabel.Size = New System.Drawing.Size(33, 13)
+        Me.ADC1MSBLabel.TabIndex = 4
+        Me.ADC1MSBLabel.Text = "MSB:"
+        '
+        'ADC1LSBLabel
+        '
+        Me.ADC1LSBLabel.AutoSize = True
+        Me.ADC1LSBLabel.Location = New System.Drawing.Point(168, 43)
+        Me.ADC1LSBLabel.Name = "ADC1LSBLabel"
+        Me.ADC1LSBLabel.Size = New System.Drawing.Size(30, 13)
+        Me.ADC1LSBLabel.TabIndex = 5
+        Me.ADC1LSBLabel.Text = "LSB:"
+        '
+        'ADC2LSBLabel
+        '
+        Me.ADC2LSBLabel.AutoSize = True
+        Me.ADC2LSBLabel.Location = New System.Drawing.Point(263, 43)
+        Me.ADC2LSBLabel.Name = "ADC2LSBLabel"
+        Me.ADC2LSBLabel.Size = New System.Drawing.Size(30, 13)
+        Me.ADC2LSBLabel.TabIndex = 8
+        Me.ADC2LSBLabel.Text = "LSB:"
+        '
+        'ADC2MSBLabel
+        '
+        Me.ADC2MSBLabel.AutoSize = True
+        Me.ADC2MSBLabel.Location = New System.Drawing.Point(263, 30)
+        Me.ADC2MSBLabel.Name = "ADC2MSBLabel"
+        Me.ADC2MSBLabel.Size = New System.Drawing.Size(33, 13)
+        Me.ADC2MSBLabel.TabIndex = 7
+        Me.ADC2MSBLabel.Text = "MSB:"
+        '
+        'ADC2Label
+        '
+        Me.ADC2Label.AutoSize = True
+        Me.ADC2Label.Location = New System.Drawing.Point(263, 16)
+        Me.ADC2Label.Name = "ADC2Label"
+        Me.ADC2Label.Size = New System.Drawing.Size(38, 13)
+        Me.ADC2Label.TabIndex = 6
+        Me.ADC2Label.Text = "ADC2:"
+        '
+        'ListBox1
+        '
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.Location = New System.Drawing.Point(503, 98)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(237, 212)
+        Me.ListBox1.TabIndex = 3
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 555)
+        Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.InputGroupBox)
         Me.Controls.Add(Me.EtchPictureBox)
         Me.Controls.Add(Me.BGPictureBox)
@@ -155,5 +229,12 @@ Partial Class MainForm
     Friend WithEvents ConnectedLabel As Label
     Friend WithEvents SerialPort As IO.Ports.SerialPort
     Friend WithEvents COMMTimer As Timer
-    Friend WithEvents UpdateTimer As Timer
+    Friend WithEvents TxTimer As Timer
+    Friend WithEvents ADC1ValueLabel As Label
+    Friend WithEvents ADC1LSBLabel As Label
+    Friend WithEvents ADC1MSBLabel As Label
+    Friend WithEvents ADC2LSBLabel As Label
+    Friend WithEvents ADC2MSBLabel As Label
+    Friend WithEvents ADC2Label As Label
+    Friend WithEvents ListBox1 As ListBox
 End Class

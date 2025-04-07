@@ -33,10 +33,6 @@ Public Class MainForm
     End Sub
 
     Private Sub COMMTimer_Tick(sender As Object, e As EventArgs) Handles COMMTimer.Tick
-        EstablishComm()
-    End Sub
-
-    Sub EstablishComm()
         Dim comPorts As String() = SerialPort.GetPortNames()
 
         If comPorts.Length > 0 Then
@@ -44,7 +40,7 @@ Public Class MainForm
                 COMMComboBox.Items.Add(port)
             Next
             COMMTimer.Enabled = False
-            UpdateTimer.Enabled = True
+            TxTimer.Enabled = True
         End If
     End Sub
 
@@ -60,23 +56,54 @@ Public Class MainForm
         BasicQY.VerifyQ(countinue, SerialPort, COMMComboBox)
     End Sub
 
-    Private Sub UpdateTimer_Tick(sender As Object, e As EventArgs) Handles UpdateTimer.Tick
+    Private Sub TxTimer_Tick(sender As Object, e As EventArgs) Handles TxTimer.Tick
         Dim working As Byte = &H0
+        Dim _bytes(1) As Byte
+        _bytes(0) = &H51
+        _bytes(1) = &H52
+        'Dim msb1 As Byte
+        'Dim lsb1 As Byte
+        'Dim int1 As Integer
+        'Dim msb2 As Byte
+        'Dim lsb2 As Byte
+        'Dim int2 As Integer
+        'Dim extra As Byte
 
-        Try
-            working = incoming.Dequeue
-        Catch ex As Exception
-            working = &H0
-        End Try
-
-        'verifies the connected device is the quiet boad
-        countinue = BasicQY.QYCheck(working)
-
-        If countinue = True Then
+        If countinue = False Then
+            Try
+                working = incoming.Dequeue
+            Catch ex As Exception
+                working = &H0
+            End Try
+            'verifies the connected device is the quiet boad
+            countinue = BasicQY.QYCheck(working)
+        Else
             ConnectedLabel.Text = "Quiet Board is Connected"
-            'do thing
+
+            SerialPort.Write(_bytes, 0, 2)
+
+            If incoming.Count <> 0 Then
+                ListBox1.Items.Clear()
+                Do Until incoming.Count = 0
+                    ListBox1.Items.Add(incoming.Dequeue)
+                Loop
+                ListBox1.Items.Add("--------------")
+            End If
+
+            'If incoming.Count <> 0 Then
+            '    msb1 = incoming.Dequeue
+            '    lsb1 = incoming.Dequeue
+            '    int1 = (CInt(msb1) * 4) + CInt(lsb1 >> 6)
+            '    ADC1ValueLabel.Text = $"ADC1: {int1}"
+            '    ADC1MSBLabel.Text = $"MSB: {msb1}"
+            '    ADC1LSBLabel.Text = $"LSB: {lsb1 >> 6}"
+            '    msb2 = incoming.Dequeue
+            '    lsb2 = incoming.Dequeue
+            '    int2 = (CInt(msb2) * 4) + CInt(lsb2 >> 6)
+            '    ADC2Label.Text = $"ADC1: {int2}"
+            '    ADC2MSBLabel.Text = $"MSB: {msb2}"
+            '    ADC2LSBLabel.Text = $"LSB: {lsb2 >> 6}"
+            'End If
         End If
-
     End Sub
-
 End Class

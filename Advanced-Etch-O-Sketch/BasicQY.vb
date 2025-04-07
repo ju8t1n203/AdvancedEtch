@@ -2,6 +2,7 @@
 'RCET3371
 'Spring 2025
 Imports System.IO.Ports
+Imports System.Security.Cryptography
 Imports System.Text
 
 Public Class BasicQY
@@ -42,6 +43,12 @@ Public Class BasicQY
             vQ = 0
         End If
         Return _continue
+    End Function
+
+    Public Shared Function GetAnalog() As Byte()
+        Dim aBytes(1) As Byte '0 is analog 1, 1 is analog 2 on the QY@ Board
+
+        Return aBytes
     End Function
 
 End Class
