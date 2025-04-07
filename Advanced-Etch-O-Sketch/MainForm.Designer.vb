@@ -25,10 +25,18 @@ Partial Class MainForm
         Me.components = New System.ComponentModel.Container()
         Me.SplashTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ExitButton = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.BGPictureBox = New System.Windows.Forms.PictureBox()
+        Me.EtchPictureBox = New System.Windows.Forms.PictureBox()
+        Me.InputGroupBox = New System.Windows.Forms.GroupBox()
+        Me.ConnectedLabel = New System.Windows.Forms.Label()
+        Me.FromLabel = New System.Windows.Forms.Label()
+        Me.COMMComboBox = New System.Windows.Forms.ComboBox()
+        Me.SerialPort = New System.IO.Ports.SerialPort(Me.components)
+        Me.COMMTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.UpdateTimer = New System.Windows.Forms.Timer(Me.components)
+        CType(Me.BGPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.EtchPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.InputGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplashTimer
@@ -41,53 +49,111 @@ Partial Class MainForm
         Me.ExitButton.Location = New System.Drawing.Point(663, 464)
         Me.ExitButton.Name = "ExitButton"
         Me.ExitButton.Size = New System.Drawing.Size(125, 79)
-        Me.ExitButton.TabIndex = 0
+        Me.ExitButton.TabIndex = 1
         Me.ExitButton.Text = "E&xit"
         Me.ExitButton.UseVisualStyleBackColor = True
         '
-        'PictureBox1
+        'BGPictureBox
         '
-        Me.PictureBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.BGPictureBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.BackColor = System.Drawing.Color.Red
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(776, 446)
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
+        Me.BGPictureBox.BackColor = System.Drawing.Color.Red
+        Me.BGPictureBox.Location = New System.Drawing.Point(12, 12)
+        Me.BGPictureBox.Name = "BGPictureBox"
+        Me.BGPictureBox.Size = New System.Drawing.Size(776, 446)
+        Me.BGPictureBox.TabIndex = 1
+        Me.BGPictureBox.TabStop = False
         '
-        'PictureBox2
+        'EtchPictureBox
         '
-        Me.PictureBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.EtchPictureBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox2.BackColor = System.Drawing.Color.White
-        Me.PictureBox2.Location = New System.Drawing.Point(29, 26)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(742, 334)
-        Me.PictureBox2.TabIndex = 2
-        Me.PictureBox2.TabStop = False
+        Me.EtchPictureBox.BackColor = System.Drawing.Color.White
+        Me.EtchPictureBox.Location = New System.Drawing.Point(29, 26)
+        Me.EtchPictureBox.Name = "EtchPictureBox"
+        Me.EtchPictureBox.Size = New System.Drawing.Size(742, 334)
+        Me.EtchPictureBox.TabIndex = 2
+        Me.EtchPictureBox.TabStop = False
+        '
+        'InputGroupBox
+        '
+        Me.InputGroupBox.Controls.Add(Me.ConnectedLabel)
+        Me.InputGroupBox.Controls.Add(Me.FromLabel)
+        Me.InputGroupBox.Controls.Add(Me.COMMComboBox)
+        Me.InputGroupBox.Location = New System.Drawing.Point(12, 464)
+        Me.InputGroupBox.Name = "InputGroupBox"
+        Me.InputGroupBox.Size = New System.Drawing.Size(645, 79)
+        Me.InputGroupBox.TabIndex = 0
+        Me.InputGroupBox.TabStop = False
+        Me.InputGroupBox.Text = "Input"
+        '
+        'ConnectedLabel
+        '
+        Me.ConnectedLabel.AutoSize = True
+        Me.ConnectedLabel.Location = New System.Drawing.Point(361, 30)
+        Me.ConnectedLabel.Name = "ConnectedLabel"
+        Me.ConnectedLabel.Size = New System.Drawing.Size(39, 13)
+        Me.ConnectedLabel.TabIndex = 2
+        Me.ConnectedLabel.Text = "Label1"
+        '
+        'FromLabel
+        '
+        Me.FromLabel.AutoSize = True
+        Me.FromLabel.Location = New System.Drawing.Point(6, 33)
+        Me.FromLabel.Name = "FromLabel"
+        Me.FromLabel.Size = New System.Drawing.Size(33, 13)
+        Me.FromLabel.TabIndex = 0
+        Me.FromLabel.Text = "From:"
+        '
+        'COMMComboBox
+        '
+        Me.COMMComboBox.FormattingEnabled = True
+        Me.COMMComboBox.Location = New System.Drawing.Point(45, 30)
+        Me.COMMComboBox.Name = "COMMComboBox"
+        Me.COMMComboBox.Size = New System.Drawing.Size(72, 21)
+        Me.COMMComboBox.TabIndex = 1
+        '
+        'SerialPort
+        '
+        '
+        'COMMTimer
+        '
+        '
+        'UpdateTimer
+        '
+        Me.UpdateTimer.Interval = 50
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 555)
-        Me.Controls.Add(Me.PictureBox2)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.InputGroupBox)
+        Me.Controls.Add(Me.EtchPictureBox)
+        Me.Controls.Add(Me.BGPictureBox)
         Me.Controls.Add(Me.ExitButton)
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Etch-O-Sketch"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BGPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EtchPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.InputGroupBox.ResumeLayout(False)
+        Me.InputGroupBox.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents SplashTimer As Timer
     Friend WithEvents ExitButton As Button
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents BGPictureBox As PictureBox
+    Friend WithEvents EtchPictureBox As PictureBox
+    Friend WithEvents InputGroupBox As GroupBox
+    Friend WithEvents FromLabel As Label
+    Friend WithEvents COMMComboBox As ComboBox
+    Friend WithEvents ConnectedLabel As Label
+    Friend WithEvents SerialPort As IO.Ports.SerialPort
+    Friend WithEvents COMMTimer As Timer
+    Friend WithEvents UpdateTimer As Timer
 End Class
