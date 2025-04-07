@@ -29,16 +29,17 @@ Public Class BasicQY
         serialport.Write(_bytes, 0, 1)
     End Sub
 
-    Public Shared Function QYCheck(_byte As Byte, vq As Integer) As Boolean
+    Shared vQ As Integer
+    Public Shared Function QYCheck(_byte As Byte) As Boolean
         'verifies the connected device is the quiet boad
         'the value of vQ will need to be updated if/when QY@3.0 is implemented
         Dim _continue As Boolean = False
-        If vq < 873 Then
-            vq = CInt(_byte) + vq
-        ElseIf vq = 873 Then
+        If vQ < 873 Then
+            vQ = CInt(_byte) + vQ
+        ElseIf vQ = 873 Then
             _continue = True
         Else
-            vq = 0
+            vQ = 0
         End If
         Return _continue
     End Function

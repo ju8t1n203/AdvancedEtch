@@ -13,7 +13,6 @@ Imports Microsoft.VisualBasic.Devices
 Public Class MainForm
     Dim incoming As New Queue(Of Byte)
     Dim countinue As Boolean = False
-    Dim vQ As Integer
 
     Private Sub SplashTimer_Tick(sender As Object, e As EventArgs) Handles SplashTimer.Tick
         Spash.Close()
@@ -71,7 +70,7 @@ Public Class MainForm
         End Try
 
         'verifies the connected device is the quiet boad
-        countinue = BasicQY.QYCheck(working, vQ)
+        countinue = BasicQY.QYCheck(working)
 
         If countinue = True Then
             ConnectedLabel.Text = "Quiet Board is Connected"
