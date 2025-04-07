@@ -20,16 +20,13 @@ Public Class MainForm
         SplashTimer.Enabled = False
     End Sub
 
-    Sub Dots()
-        Dim g As Graphics = BGPictureBox.CreateGraphics
-        Dim pen As New Pen(Color.White)
-        g.DrawEllipse(pen, 100, 100, 100, 100)
-
-        g.Dispose()
-    End Sub
-
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         COMMTimer.Enabled = True
+    End Sub
+
+    'serial port setup-----------------------------------------------
+    Private Sub COMMComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles COMMComboBox.SelectedIndexChanged
+        BasicQY.VerifyQ(countinue, SerialPort, COMMComboBox)
     End Sub
 
     Private Sub COMMTimer_Tick(sender As Object, e As EventArgs) Handles COMMTimer.Tick
@@ -44,16 +41,9 @@ Public Class MainForm
         End If
     End Sub
 
+    'data handling--------------------------------------------------
     Private Sub SerialPort_DataReceived(sender As Object, e As SerialDataReceivedEventArgs) Handles SerialPort.DataReceived
         BasicQY.RecieveData(SerialPort, incoming)
-    End Sub
-
-    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
-        Me.Close()
-    End Sub
-
-    Private Sub COMMComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles COMMComboBox.SelectedIndexChanged
-        BasicQY.VerifyQ(countinue, SerialPort, COMMComboBox)
     End Sub
 
     Private Sub TxTimer_Tick(sender As Object, e As EventArgs) Handles TxTimer.Tick
@@ -82,5 +72,19 @@ Public Class MainForm
                 ListBox1.Items.Add(ADC(1))
             End If
         End If
+    End Sub
+
+    'graphics---------------------------------------------------------
+    Sub Dots()
+        Dim g As Graphics = BGPictureBox.CreateGraphics
+        Dim pen As New Pen(Color.White)
+        g.DrawEllipse(pen, 100, 100, 100, 100)
+
+        g.Dispose()
+    End Sub
+
+    'exit button------------------------------------------------------
+    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
+        Me.Close()
     End Sub
 End Class
