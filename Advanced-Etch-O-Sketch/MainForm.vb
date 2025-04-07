@@ -1,10 +1,10 @@
-﻿Option Explicit On
-Option Strict On
-'Justin Bell
+﻿'Justin Bell
 'RCET3371
 'Spring 2025
 'link
 
+Option Explicit On
+Option Strict On
 Imports System.IO.Ports
 Imports System.Xml
 Imports System.Threading
@@ -49,28 +49,8 @@ Public Class MainForm
         End If
     End Sub
 
-    Sub VerifyQ()
-        countinue = False
-        SerialPort.PortName = COMMComboBox.SelectedItem.ToString
-        SerialPort.Open()
-
-        Dim _bytes(0) As Byte
-        _bytes(0) = &B11110000
-
-        SerialPort.Write(_bytes, 0, 1)
-    End Sub
-
     Private Sub SerialPort_DataReceived(sender As Object, e As SerialDataReceivedEventArgs) Handles SerialPort.DataReceived
-        Console.WriteLine(SerialPort.BytesToRead)
-        Dim numberofbytes = SerialPort.BytesToRead
-        Dim _bytes(numberofbytes) As Byte
-
-        SerialPort.Read(_bytes, 0, numberofbytes)
-
-        For Each thingy In _bytes
-            Console.WriteLine($"{thingy.ToString.PadLeft(3)}        0x{Hex(thingy).ToString.PadLeft(2)}       ASCII:{Chr(thingy)}")
-            incoming.Enqueue(thingy)
-        Next
+        BasicQY.RecieveData(SerialPort, incoming)
     End Sub
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
@@ -78,26 +58,24 @@ Public Class MainForm
     End Sub
 
     Private Sub COMMComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles COMMComboBox.SelectedIndexChanged
-        VerifyQ()
+        BasicQY.VerifyQ(countinue, SerialPort, COMMComboBox)
     End Sub
 
     Private Sub UpdateTimer_Tick(sender As Object, e As EventArgs) Handles UpdateTimer.Tick
         Dim working As Byte = &H0
 
-        ConnectedLabel.Visible = True
         Try
             working = incoming.Dequeue
         Catch ex As Exception
             working = &H0
         End Try
 
-        If vQ < 873 Then
-            vQ = CInt(working) + vQ
-        ElseIf vQ = 873 Then
-            countinue = True
+        'verifies the connected device is the quiet boad
+        countinue = BasicQY.QYCheck(working, vQ)
+
+        If countinue = True Then
             ConnectedLabel.Text = "Quiet Board is Connected"
-        Else
-            vQ = 0
+            'do thing
         End If
 
     End Sub
