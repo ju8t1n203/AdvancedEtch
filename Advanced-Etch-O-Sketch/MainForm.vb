@@ -1,7 +1,7 @@
 ﻿'Justin Bell
 'RCET3371
 'Spring 2025
-'link
+'https://github.com/ju8t1n203/AdvancedEtch
 
 Option Explicit On
 Option Strict On
@@ -61,13 +61,7 @@ Public Class MainForm
         Dim _bytes(1) As Byte
         _bytes(0) = &H51
         _bytes(1) = &H52
-        'Dim msb1 As Byte
-        'Dim lsb1 As Byte
-        'Dim int1 As Integer
-        'Dim msb2 As Byte
-        'Dim lsb2 As Byte
-        'Dim int2 As Integer
-        'Dim extra As Byte
+        Dim ADC() As Integer
 
         If countinue = False Then
             Try
@@ -79,31 +73,14 @@ Public Class MainForm
             countinue = BasicQY.QYCheck(working)
         Else
             ConnectedLabel.Text = "Quiet Board is Connected"
-
             SerialPort.Write(_bytes, 0, 2)
 
-            If incoming.Count <> 0 Then
+            ADC = BasicQY.GetAnalog(incoming)
+            If ADC(0) > 0 Then
                 ListBox1.Items.Clear()
-                Do Until incoming.Count = 0
-                    ListBox1.Items.Add(incoming.Dequeue)
-                Loop
-                ListBox1.Items.Add("--------------")
+                ListBox1.Items.Add(ADC(0))
+                ListBox1.Items.Add(ADC(1))
             End If
-
-            'If incoming.Count <> 0 Then
-            '    msb1 = incoming.Dequeue
-            '    lsb1 = incoming.Dequeue
-            '    int1 = (CInt(msb1) * 4) + CInt(lsb1 >> 6)
-            '    ADC1ValueLabel.Text = $"ADC1: {int1}"
-            '    ADC1MSBLabel.Text = $"MSB: {msb1}"
-            '    ADC1LSBLabel.Text = $"LSB: {lsb1 >> 6}"
-            '    msb2 = incoming.Dequeue
-            '    lsb2 = incoming.Dequeue
-            '    int2 = (CInt(msb2) * 4) + CInt(lsb2 >> 6)
-            '    ADC2Label.Text = $"ADC1: {int2}"
-            '    ADC2MSBLabel.Text = $"MSB: {msb2}"
-            '    ADC2LSBLabel.Text = $"LSB: {lsb2 >> 6}"
-            'End If
         End If
     End Sub
 End Class

@@ -45,10 +45,26 @@ Public Class BasicQY
         Return _continue
     End Function
 
-    Public Shared Function GetAnalog() As Byte()
-        Dim aBytes(1) As Byte '0 is analog 1, 1 is analog 2 on the QY@ Board
+    Public Shared Function GetAnalog(incoming As Queue(Of Byte)) As Integer()
+        Dim adcValues(1) As Integer '0 is analog 1, 1 is analog 2 on the QY@ Board
+        Dim msb1 As Byte
+        Dim lsb1 As Byte
+        Dim msb2 As Byte
+        Dim lsb2 As Byte
 
-        Return aBytes
+        If incoming.Count > 3 Then
+            msb1 = incoming.Dequeue
+            lsb1 = incoming.Dequeue
+            adcValues(0) = (CInt(msb1) * 4) + CInt(lsb1 >> 6)
+
+            msb2 = incoming.Dequeue
+            lsb2 = incoming.Dequeue
+            adcValues(1) = (CInt(msb2) * 4) + CInt(lsb2 >> 6)
+
+            incoming.Clear()
+        End If
+
+        Return adcValues
     End Function
 
 End Class
