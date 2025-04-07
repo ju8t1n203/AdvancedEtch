@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class MainForm
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.SplashTimer = New System.Windows.Forms.Timer(Me.components)
@@ -34,13 +34,6 @@ Partial Class MainForm
         Me.SerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.COMMTimer = New System.Windows.Forms.Timer(Me.components)
         Me.TxTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.ADC1ValueLabel = New System.Windows.Forms.Label()
-        Me.ADC1MSBLabel = New System.Windows.Forms.Label()
-        Me.ADC1LSBLabel = New System.Windows.Forms.Label()
-        Me.ADC2LSBLabel = New System.Windows.Forms.Label()
-        Me.ADC2MSBLabel = New System.Windows.Forms.Label()
-        Me.ADC2Label = New System.Windows.Forms.Label()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
         CType(Me.BGPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EtchPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.InputGroupBox.SuspendLayout()
@@ -86,18 +79,13 @@ Partial Class MainForm
         '
         'InputGroupBox
         '
-        Me.InputGroupBox.Controls.Add(Me.ADC2LSBLabel)
-        Me.InputGroupBox.Controls.Add(Me.ADC2MSBLabel)
-        Me.InputGroupBox.Controls.Add(Me.ADC2Label)
-        Me.InputGroupBox.Controls.Add(Me.ADC1LSBLabel)
-        Me.InputGroupBox.Controls.Add(Me.ADC1MSBLabel)
-        Me.InputGroupBox.Controls.Add(Me.ADC1ValueLabel)
+        Me.InputGroupBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.InputGroupBox.Controls.Add(Me.ConnectedLabel)
         Me.InputGroupBox.Controls.Add(Me.FromLabel)
         Me.InputGroupBox.Controls.Add(Me.COMMComboBox)
         Me.InputGroupBox.Location = New System.Drawing.Point(12, 464)
         Me.InputGroupBox.Name = "InputGroupBox"
-        Me.InputGroupBox.Size = New System.Drawing.Size(645, 79)
+        Me.InputGroupBox.Size = New System.Drawing.Size(286, 79)
         Me.InputGroupBox.TabIndex = 0
         Me.InputGroupBox.TabStop = False
         Me.InputGroupBox.Text = "Input"
@@ -105,10 +93,11 @@ Partial Class MainForm
         'ConnectedLabel
         '
         Me.ConnectedLabel.AutoSize = True
-        Me.ConnectedLabel.Location = New System.Drawing.Point(361, 30)
+        Me.ConnectedLabel.Location = New System.Drawing.Point(123, 33)
         Me.ConnectedLabel.Name = "ConnectedLabel"
-        Me.ConnectedLabel.Size = New System.Drawing.Size(0, 13)
+        Me.ConnectedLabel.Size = New System.Drawing.Size(127, 13)
         Me.ConnectedLabel.TabIndex = 2
+        Me.ConnectedLabel.Text = "Connect to a Quiet Board"
         '
         'FromLabel
         '
@@ -135,75 +124,13 @@ Partial Class MainForm
         '
         'TxTimer
         '
-        '
-        'ADC1ValueLabel
-        '
-        Me.ADC1ValueLabel.AutoSize = True
-        Me.ADC1ValueLabel.Location = New System.Drawing.Point(168, 16)
-        Me.ADC1ValueLabel.Name = "ADC1ValueLabel"
-        Me.ADC1ValueLabel.Size = New System.Drawing.Size(38, 13)
-        Me.ADC1ValueLabel.TabIndex = 3
-        Me.ADC1ValueLabel.Text = "ADC1:"
-        '
-        'ADC1MSBLabel
-        '
-        Me.ADC1MSBLabel.AutoSize = True
-        Me.ADC1MSBLabel.Location = New System.Drawing.Point(168, 30)
-        Me.ADC1MSBLabel.Name = "ADC1MSBLabel"
-        Me.ADC1MSBLabel.Size = New System.Drawing.Size(33, 13)
-        Me.ADC1MSBLabel.TabIndex = 4
-        Me.ADC1MSBLabel.Text = "MSB:"
-        '
-        'ADC1LSBLabel
-        '
-        Me.ADC1LSBLabel.AutoSize = True
-        Me.ADC1LSBLabel.Location = New System.Drawing.Point(168, 43)
-        Me.ADC1LSBLabel.Name = "ADC1LSBLabel"
-        Me.ADC1LSBLabel.Size = New System.Drawing.Size(30, 13)
-        Me.ADC1LSBLabel.TabIndex = 5
-        Me.ADC1LSBLabel.Text = "LSB:"
-        '
-        'ADC2LSBLabel
-        '
-        Me.ADC2LSBLabel.AutoSize = True
-        Me.ADC2LSBLabel.Location = New System.Drawing.Point(263, 43)
-        Me.ADC2LSBLabel.Name = "ADC2LSBLabel"
-        Me.ADC2LSBLabel.Size = New System.Drawing.Size(30, 13)
-        Me.ADC2LSBLabel.TabIndex = 8
-        Me.ADC2LSBLabel.Text = "LSB:"
-        '
-        'ADC2MSBLabel
-        '
-        Me.ADC2MSBLabel.AutoSize = True
-        Me.ADC2MSBLabel.Location = New System.Drawing.Point(263, 30)
-        Me.ADC2MSBLabel.Name = "ADC2MSBLabel"
-        Me.ADC2MSBLabel.Size = New System.Drawing.Size(33, 13)
-        Me.ADC2MSBLabel.TabIndex = 7
-        Me.ADC2MSBLabel.Text = "MSB:"
-        '
-        'ADC2Label
-        '
-        Me.ADC2Label.AutoSize = True
-        Me.ADC2Label.Location = New System.Drawing.Point(263, 16)
-        Me.ADC2Label.Name = "ADC2Label"
-        Me.ADC2Label.Size = New System.Drawing.Size(38, 13)
-        Me.ADC2Label.TabIndex = 6
-        Me.ADC2Label.Text = "ADC2:"
-        '
-        'ListBox1
-        '
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.Location = New System.Drawing.Point(503, 98)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(237, 212)
-        Me.ListBox1.TabIndex = 3
+        Me.TxTimer.Interval = 50
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 555)
-        Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.InputGroupBox)
         Me.Controls.Add(Me.EtchPictureBox)
         Me.Controls.Add(Me.BGPictureBox)
@@ -230,11 +157,4 @@ Partial Class MainForm
     Friend WithEvents SerialPort As IO.Ports.SerialPort
     Friend WithEvents COMMTimer As Timer
     Friend WithEvents TxTimer As Timer
-    Friend WithEvents ADC1ValueLabel As Label
-    Friend WithEvents ADC1LSBLabel As Label
-    Friend WithEvents ADC1MSBLabel As Label
-    Friend WithEvents ADC2LSBLabel As Label
-    Friend WithEvents ADC2MSBLabel As Label
-    Friend WithEvents ADC2Label As Label
-    Friend WithEvents ListBox1 As ListBox
 End Class
