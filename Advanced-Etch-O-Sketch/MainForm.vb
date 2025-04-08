@@ -24,9 +24,16 @@ Public Class MainForm
         SplashTimer.Enabled = False
     End Sub
 
+    Private Sub MainForm_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+        Spash.Show()
+        Me.Hide()
+    End Sub
+
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         COMMTimer.Enabled = True
         Dots()
+        penColor(Color.Black)
+        penWidth(1)
     End Sub
 
     'serial port setup-----------------------------------------------
@@ -69,17 +76,13 @@ Public Class MainForm
             ConnectedLabel.Text = "Quiet Board is Connected"
             SerialPort.Write(_bytes, 0, 2)
             ADC = BasicQY.GetAnalog(incoming)
-            If ADC Is Nothing Then
+            If ADC(0) < 5 Then
             Else
                 If iterration = False Then
                     DrawLine(ADC(0), ADC(1))
                     iterration = True
-                    _store(0) = ADC(0)
-                    _store(1) = ADC(1)
                 Else
                     DrawLine(_store(0), _store(1))
-                    _store(0) = ADC(0)
-                    _store(1) = ADC(1)
                 End If
             End If
         End If
@@ -98,24 +101,76 @@ Public Class MainForm
 
     Sub DrawLine(startX As Integer, startY As Integer)
         Dim g As Graphics = EtchPictureBox.CreateGraphics
-        Dim pen As New Pen(Color.Black)
+        Dim pen As New Pen(penColor(), penWidth())
         Dim endx As Integer
         Dim endy As Integer
+
         Try
-            endx = CInt(EtchPictureBox.Width / ADC(0))
-            endy = CInt(EtchPictureBox.Height / ADC(1))
+            endx = ADC(0)
+            endy = ADC(1)
             g.DrawLine(pen, startX, startY, endx, endy)
+            _store(0) = endx
+            _store(1) = endy
         Catch ex As Exception
 
         End Try
 
+        LocationLabel.Text = $"Location: {ADC(0)}, {ADC(1)}"
 
         g.Dispose()
 
     End Sub
 
-    'exit button------------------------------------------------------
+    Function penColor(Optional newColor As Color = Nothing) As Color
+        'holds and updates the drawing tool color
+        Static _color As Color
+
+        If newColor <> Nothing Then
+            _color = newColor
+        End If
+
+        Return _color
+    End Function
+
+    Function penWidth(Optional newWidth As Integer = Nothing) As Integer
+        'holds and updates the drawing tool color
+        Static _width As Integer
+
+        If newWidth <> Nothing Then
+            _width = newWidth
+        End If
+
+        Return _width
+    End Function
+
+    'buttons----------------------------------------------------------
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Me.Close()
     End Sub
+
+    Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
+        EtchPictureBox.Image = Nothing
+    End Sub
+
+    'context menu strip---------------------------------------------
+    Private Sub PenSizeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PenSizeToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub PenColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PenColorToolStripMenuItem.Click
+        'opens a dialog for the user to change the tool color
+        Dim ColorDialog As New ColorDialog
+        If ColorDialog.ShowDialog() = DialogResult.OK Then
+            penColor(ColorDialog.Color)
+        End If
+    End Sub
+
+    Private Sub ClearToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearToolStripMenuItem.Click
+        ClearButton.PerformClick()
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Me.Close()
+    End Sub
+
 End Class
