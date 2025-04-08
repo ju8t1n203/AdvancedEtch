@@ -27,6 +27,12 @@ Partial Class MainForm
         Me.ExitButton = New System.Windows.Forms.Button()
         Me.BGPictureBox = New System.Windows.Forms.PictureBox()
         Me.EtchPictureBox = New System.Windows.Forms.PictureBox()
+        Me.ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.PenSizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PenSizeComboBox = New System.Windows.Forms.ToolStripComboBox()
+        Me.PenColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InputGroupBox = New System.Windows.Forms.GroupBox()
         Me.ConnectedLabel = New System.Windows.Forms.Label()
         Me.FromLabel = New System.Windows.Forms.Label()
@@ -36,15 +42,10 @@ Partial Class MainForm
         Me.TxTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ClearButton = New System.Windows.Forms.Button()
         Me.LocationLabel = New System.Windows.Forms.Label()
-        Me.ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.PenSizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PenColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.BGPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EtchPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.InputGroupBox.SuspendLayout()
         Me.ContextMenuStrip.SuspendLayout()
+        Me.InputGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplashTimer
@@ -57,7 +58,7 @@ Partial Class MainForm
         Me.ExitButton.Location = New System.Drawing.Point(663, 464)
         Me.ExitButton.Name = "ExitButton"
         Me.ExitButton.Size = New System.Drawing.Size(125, 79)
-        Me.ExitButton.TabIndex = 1
+        Me.ExitButton.TabIndex = 2
         Me.ExitButton.Text = "E&xit"
         Me.ExitButton.UseVisualStyleBackColor = True
         '
@@ -67,6 +68,7 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BGPictureBox.BackColor = System.Drawing.Color.Red
+        Me.BGPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.BGPictureBox.Location = New System.Drawing.Point(12, 12)
         Me.BGPictureBox.Name = "BGPictureBox"
         Me.BGPictureBox.Size = New System.Drawing.Size(776, 446)
@@ -79,12 +81,51 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.EtchPictureBox.BackColor = System.Drawing.Color.White
+        Me.EtchPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.EtchPictureBox.ContextMenuStrip = Me.ContextMenuStrip
         Me.EtchPictureBox.Location = New System.Drawing.Point(29, 26)
         Me.EtchPictureBox.Name = "EtchPictureBox"
         Me.EtchPictureBox.Size = New System.Drawing.Size(742, 334)
         Me.EtchPictureBox.TabIndex = 2
         Me.EtchPictureBox.TabStop = False
+        Me.EtchPictureBox.Visible = False
+        '
+        'ContextMenuStrip
+        '
+        Me.ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PenSizeToolStripMenuItem, Me.PenColorToolStripMenuItem, Me.ClearToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.ContextMenuStrip.Name = "ContextMenuStrip"
+        Me.ContextMenuStrip.Size = New System.Drawing.Size(128, 92)
+        '
+        'PenSizeToolStripMenuItem
+        '
+        Me.PenSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PenSizeComboBox})
+        Me.PenSizeToolStripMenuItem.Name = "PenSizeToolStripMenuItem"
+        Me.PenSizeToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.PenSizeToolStripMenuItem.Text = "Pen Size"
+        '
+        'PenSizeComboBox
+        '
+        Me.PenSizeComboBox.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"})
+        Me.PenSizeComboBox.Name = "PenSizeComboBox"
+        Me.PenSizeComboBox.Size = New System.Drawing.Size(121, 25)
+        '
+        'PenColorToolStripMenuItem
+        '
+        Me.PenColorToolStripMenuItem.Name = "PenColorToolStripMenuItem"
+        Me.PenColorToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.PenColorToolStripMenuItem.Text = "Pen Color"
+        '
+        'ClearToolStripMenuItem
+        '
+        Me.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem"
+        Me.ClearToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.ClearToolStripMenuItem.Text = "Clear"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'InputGroupBox
         '
@@ -154,36 +195,6 @@ Partial Class MainForm
         Me.LocationLabel.TabIndex = 3
         Me.LocationLabel.Text = "Location:"
         '
-        'ContextMenuStrip
-        '
-        Me.ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PenSizeToolStripMenuItem, Me.PenColorToolStripMenuItem, Me.ClearToolStripMenuItem, Me.ExitToolStripMenuItem})
-        Me.ContextMenuStrip.Name = "ContextMenuStrip"
-        Me.ContextMenuStrip.Size = New System.Drawing.Size(181, 114)
-        '
-        'PenSizeToolStripMenuItem
-        '
-        Me.PenSizeToolStripMenuItem.Name = "PenSizeToolStripMenuItem"
-        Me.PenSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PenSizeToolStripMenuItem.Text = "Pen Size"
-        '
-        'PenColorToolStripMenuItem
-        '
-        Me.PenColorToolStripMenuItem.Name = "PenColorToolStripMenuItem"
-        Me.PenColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PenColorToolStripMenuItem.Text = "Pen Color"
-        '
-        'ClearToolStripMenuItem
-        '
-        Me.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem"
-        Me.ClearToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ClearToolStripMenuItem.Text = "Clear"
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
-        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -200,9 +211,9 @@ Partial Class MainForm
         Me.Text = "Etch-O-Sketch"
         CType(Me.BGPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.EtchPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip.ResumeLayout(False)
         Me.InputGroupBox.ResumeLayout(False)
         Me.InputGroupBox.PerformLayout()
-        Me.ContextMenuStrip.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -226,4 +237,5 @@ Partial Class MainForm
     Friend WithEvents PenColorToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClearToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PenSizeComboBox As ToolStripComboBox
 End Class

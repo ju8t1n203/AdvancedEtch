@@ -25,8 +25,12 @@ Public Class MainForm
     End Sub
 
     Private Sub MainForm_Activated(sender As Object, e As EventArgs) Handles Me.Activated
-        Spash.Show()
-        Me.Hide()
+        Static isStart As Boolean = True
+        If isStart = True Then
+            Spash.Show()
+            Me.Hide()
+            isStart = False
+        End If
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -153,8 +157,8 @@ Public Class MainForm
     End Sub
 
     'context menu strip---------------------------------------------
-    Private Sub PenSizeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PenSizeToolStripMenuItem.Click
-
+    Private Sub PenSizeComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles PenSizeComboBox.SelectedIndexChanged
+        penWidth(PenSizeComboBox.SelectedIndex + 1)
     End Sub
 
     Private Sub PenColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PenColorToolStripMenuItem.Click
