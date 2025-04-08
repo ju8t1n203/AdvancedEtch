@@ -12,32 +12,36 @@ Imports Microsoft.VisualBasic.Devices
 Imports System.CodeDom
 
 Public Class MainForm
-    Dim incoming As New Queue(Of Byte)
     Dim countinue As Boolean = False
+    Dim incoming As New Queue(Of Byte)
     Dim ADC(1) As Integer
     Dim _store(1) As Integer
-    Dim iterration As Boolean = False
 
     Private Sub SplashTimer_Tick(sender As Object, e As EventArgs) Handles SplashTimer.Tick
         Spash.Close()
-        Me.Show()
         SplashTimer.Enabled = False
+        COMMTimer.Enabled = True
+        Dots()
     End Sub
 
     Private Sub MainForm_Activated(sender As Object, e As EventArgs) Handles Me.Activated
         Static isStart As Boolean = True
         If isStart = True Then
             Spash.Show()
-            Me.Hide()
+            SplashTimer.Enabled = True
             isStart = False
         End If
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        COMMTimer.Enabled = True
-        Dots()
         penColor(Color.Black)
         penWidth(1)
+    End Sub
+
+    Private Sub MainForm_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        BGPictureBox.Image = Nothing
+        BGPictureBox.Image = New Bitmap(BGPictureBox.Width, BGPictureBox.Height)
+        Dots()
     End Sub
 
     'serial port setup-----------------------------------------------
@@ -63,6 +67,7 @@ Public Class MainForm
     End Sub
 
     Private Sub TxTimer_Tick(sender As Object, e As EventArgs) Handles TxTimer.Tick
+        Static iterration As Boolean = False
         Dim working As Byte = &H0
         Dim _bytes(1) As Byte
         _bytes(0) = &H51
@@ -95,10 +100,12 @@ Public Class MainForm
     'graphics---------------------------------------------------------
     Sub Dots()
         Dim g As Graphics = BGPictureBox.CreateGraphics
-        Dim pen As New Pen(Color.Black)
-        Dim x As Integer = BGPictureBox.Width
-        Dim y As Integer = BGPictureBox.Height
-        g.DrawEllipse(pen, x, y, 100, 100)
+        Dim pen As New Pen(Color.White, 50)
+        Dim x As Integer = BGPictureBox.Width - 100
+        Dim y As Integer = BGPictureBox.Height - 100
+        g.DrawEllipse(pen, x + 25, y + 25, 50, 50)
+
+        g.DrawEllipse(pen, 25, y + 25, 50, 50)
 
         g.Dispose()
     End Sub
@@ -110,8 +117,8 @@ Public Class MainForm
         Dim endy As Integer
 
         Try
-            endx = ADC(0)
-            endy = ADC(1)
+            endx = CInt((ADC(0) / 1013) * EtchPictureBox.Width)
+            endy = CInt((ADC(1) / 1013) * EtchPictureBox.Height)
             g.DrawLine(pen, startX, startY, endx, endy)
             _store(0) = endx
             _store(1) = endy
@@ -119,7 +126,7 @@ Public Class MainForm
 
         End Try
 
-        LocationLabel.Text = $"Location: {ADC(0)}, {ADC(1)}"
+        LocationLabel.Text = $"Location: {endx}, {endy}"
 
         g.Dispose()
 
@@ -176,5 +183,6 @@ Public Class MainForm
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Me.Close()
     End Sub
+
 
 End Class

@@ -88,7 +88,6 @@ Partial Class MainForm
         Me.EtchPictureBox.Size = New System.Drawing.Size(742, 334)
         Me.EtchPictureBox.TabIndex = 2
         Me.EtchPictureBox.TabStop = False
-        Me.EtchPictureBox.Visible = False
         '
         'ContextMenuStrip
         '
@@ -188,6 +187,7 @@ Partial Class MainForm
         '
         'LocationLabel
         '
+        Me.LocationLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LocationLabel.AutoSize = True
         Me.LocationLabel.Location = New System.Drawing.Point(304, 475)
         Me.LocationLabel.Name = "LocationLabel"
