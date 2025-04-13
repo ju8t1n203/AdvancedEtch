@@ -38,12 +38,6 @@ Public Class MainForm
         penWidth(1)
     End Sub
 
-    Private Sub MainForm_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        'BGPictureBox.Image = Nothing
-        'BGPictureBox.Image = New Bitmap(BGPictureBox.Width, BGPictureBox.Height)
-        Dots()
-    End Sub
-
     'serial port setup-----------------------------------------------
     Private Sub COMMComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles COMMComboBox.SelectedIndexChanged
         BasicQY.VerifyQ(countinue, SerialPort, COMMComboBox)
