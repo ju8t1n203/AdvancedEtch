@@ -39,8 +39,8 @@ Public Class MainForm
     End Sub
 
     Private Sub MainForm_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        BGPictureBox.Image = Nothing
-        BGPictureBox.Image = New Bitmap(BGPictureBox.Width, BGPictureBox.Height)
+        'BGPictureBox.Image = Nothing
+        'BGPictureBox.Image = New Bitmap(BGPictureBox.Width, BGPictureBox.Height)
         Dots()
     End Sub
 
@@ -73,6 +73,8 @@ Public Class MainForm
         _bytes(0) = &H51
         _bytes(1) = &H52
 
+        Dots()
+
         If countinue = False Then
             Try
                 working = incoming.Dequeue
@@ -100,12 +102,12 @@ Public Class MainForm
     'graphics---------------------------------------------------------
     Sub Dots()
         Dim g As Graphics = BGPictureBox.CreateGraphics
-        Dim pen As New Pen(Color.White, 50)
+        Dim pen As New Pen(Color.White, 30)
         Dim x As Integer = BGPictureBox.Width - 100
         Dim y As Integer = BGPictureBox.Height - 100
-        g.DrawEllipse(pen, x + 25, y + 25, 50, 50)
+        g.DrawEllipse(pen, x + 30, y + 35, 30, 30) 'right side
 
-        g.DrawEllipse(pen, 25, y + 25, 50, 50)
+        g.DrawEllipse(pen, 30, y + 35, 30, 30) 'left side
 
         g.Dispose()
     End Sub
@@ -183,6 +185,5 @@ Public Class MainForm
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Me.Close()
     End Sub
-
 
 End Class
